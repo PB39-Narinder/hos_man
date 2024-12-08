@@ -19,10 +19,12 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Serve static files
-app.use(express.static(path.resolve(__dirname, "frontend", "dist")));
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+// Serve static files from the 'frontend/dist' directory
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+
+// Serve the index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
 
 // Start the server
